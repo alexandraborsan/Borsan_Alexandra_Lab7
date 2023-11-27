@@ -14,9 +14,9 @@
             count++;
 
             if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
+                CounterBtn.Text = $"Mangaiat de {count} ori";
             else
-                CounterBtn.Text = $"Clicked {count} times";
+                CounterBtn.Text = $"Mangaiat de {count} ori";
 
             SemanticScreenReader.Announce(CounterBtn.Text);
         }
