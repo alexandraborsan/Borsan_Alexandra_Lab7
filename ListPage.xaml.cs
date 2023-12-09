@@ -1,5 +1,7 @@
-namespace Borsan_Alexandra_Lab7;
 using Borsan_Alexandra_Lab7.Models;
+
+namespace Borsan_Alexandra_Lab7;
+
 public partial class ListPage : ContentPage
 {
     public ListPage()
@@ -19,4 +21,40 @@ public partial class ListPage : ContentPage
         await App.Database.DeleteShopListAsync(slist);
         await Navigation.PopAsync();
     }
+    async void OnDeleteButtonItemClicked(object sender, EventArgs e)
+    {
+        var currentShopList = BindingContext as ShopList;
+        var selectedProduct = listView.SelectedItem as Product;
+
+        if (selectedProduct != null && currentShopList != null)
+        {
+            await App.Database.DeleteProductFromShopListAsync(selectedProduct.ID, currentShopList.ID);
+
+            listView.ItemsSource = await App.Database.GetListProductsAsync(currentShopList.ID);
+
+            listView.SelectedItem = null;
+        }
+    }
+
+    async void OnChooseButtonClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new ProductPage((ShopList)
+       this.BindingContext)
+        {
+            BindingContext = new Product()
+        });
+
+    }
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        var shopl = (ShopList)BindingContext;
+
+        listView.ItemsSource = await App.Database.GetListProductsAsync(shopl.ID);
+    }
+
+
 }
+
+
+

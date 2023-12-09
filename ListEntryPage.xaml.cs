@@ -29,5 +29,6 @@ public partial class ListEntryPage : ContentPage
                 BindingContext = e.SelectedItem as ShopList
             });
         }
+
     }
 }
