@@ -101,5 +101,9 @@ namespace Borsan_Alexandra_Lab7.Data
                 return _database.InsertAsync(shop);
             }
         }
+        public Task DeleteShopAsync(Shop shop)
+        {
+            return _database.DeleteAsync(shop);
+        }
     }
 }
